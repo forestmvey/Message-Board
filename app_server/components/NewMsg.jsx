@@ -5,8 +5,10 @@ class NewMsg extends React.Component {
         super(props);
         this.state = {
             name: "",
-            msg: ""
+            msg: "",
+            email: this.props.email
         }
+        console.log("newMsg "+this.state.email);
         this.handleText = this.handleText.bind(this);
         this.addMessage = this.addMessage.bind(this);
 
@@ -16,7 +18,8 @@ class NewMsg extends React.Component {
             this.setState({
                 name: event.target.value
             });
-        }else {
+        }
+        else {
             this.setState({
                 msg: event.target.value
             });
@@ -28,7 +31,8 @@ class NewMsg extends React.Component {
         // save state vars to local
         let name = this.state.name;
         let msg = this.state.msg;
-
+        let email = this.state.email
+        console.log("email = " + email);
         // make sure neither field is empty
         if(!name || !msg) {
             return console.error('Name and/or Msg cannot be empty');
@@ -38,7 +42,7 @@ class NewMsg extends React.Component {
         name = name.trim(); msg = msg.trim();
 
         // Pass control to MsgBoard so it can make the API Call and update message
-        this.props.addMsgCallback({ name: name, msg: msg });
+        this.props.addMsgCallback({ name: name, msg: msg, email:email });
     }
     render() {
         return (

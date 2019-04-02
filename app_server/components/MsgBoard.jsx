@@ -97,7 +97,6 @@ class MsgBoard extends React.Component {
         })
     }
     addMessage(message) {
-
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
     //    let msgs = this.state.messages;
@@ -175,12 +174,12 @@ class MsgBoard extends React.Component {
                 loginAttempts={this.state.loginAttempts}
                 />
             }else {
-                form = <NewMsg addMsgCallback={this.addMessage} />
+                form = <NewMsg addMsgCallback={this.addMessage} email={this.state.userCredentials.email} />
             }
             return (
                 <div>
                 {form}
-                <MsgList messages={this.state.messages} />
+                <MsgList messages={this.state.messages} email={this.state.userCredentials.email} />
                 </div>
                 );
         }

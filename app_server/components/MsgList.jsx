@@ -1,7 +1,9 @@
 const React = require('react');
+const Message = require('./Message.jsx');
 
 const MsgList = (props) => {
        return(
+           <div>
             <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -18,14 +20,13 @@ const MsgList = (props) => {
                 </thead>
                 <tbody>
                 {props.messages.map( (message, index) =>
-                    <tr key={message._id}>
-                        <td>{index+1}</td>
-                        <td>{message.name}</td>
-                        <td>{message.msg}</td>
-                    </tr>
+                    // <tbody key={message._id}>
+                     <Message key={message._id} message={props.message} email={props.email} index={index}/> 
+                    // </tbody>
                     )}
                 </tbody>
             </table> 
+            </div>
        );
 }
 

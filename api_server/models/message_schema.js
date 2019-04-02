@@ -6,7 +6,11 @@ const messageSchema = new mongoose.Schema ({
         required: true,
         maxLength: 20
     },
-    msg: String
+    msg: String,
+    email: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('message', messageSchema);
