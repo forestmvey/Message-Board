@@ -143,7 +143,20 @@ class MsgBoard extends React.Component {
 
        deleteMsg(messageId) {
            console.log("delete message success call messageId = " + messageId);
-       }
+           fetch(`${process.env.API_URL}/msgs/`+messageId, {
+            METHOD: 'DEL',
+            headers: {
+                'Authorization': 'Basic ' + btoa(basicString)
+            },
+        })
+        .then(response=> this.handleHTTPErrors(response))
+        .then(result => result.json() )
+        .then(console.log(result))
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
        deleteAllMsgs() {
         console.log("delete all message success call");
        }
