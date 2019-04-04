@@ -23,7 +23,7 @@ const addNewMessage = (req, res) => {
             res.status(400).json(err);
        } else {   
            console.log("addNewMessage req.user = " + JSON.stringify(req.user));
-           res.status(201).json({"message" : message, "user" : req.user});   
+           res.status(201).json({"message" : message });   
         } 
     });
 };

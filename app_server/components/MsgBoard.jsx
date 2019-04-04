@@ -16,6 +16,7 @@ class MsgBoard extends React.Component {
                 email: '',
                 password: ''
             },
+            adminId: "5ca66886bb86f43eb02d7df9",
             currentUser: "",
             registrationForm: false, 
             registrationFail: false
@@ -98,7 +99,7 @@ class MsgBoard extends React.Component {
         .then(result => result.json())
         .then(result=> {
             this.setState({
-                currentUser: result.username
+                currentUser: result
             });
         })
         .catch(error => {
@@ -106,7 +107,6 @@ class MsgBoard extends React.Component {
         })
     }
     addMessage(message) {
-        console.log("beginning addMessage");
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
     //    let msgs = this.state.messages;
@@ -132,7 +132,6 @@ class MsgBoard extends React.Component {
         .then(response=> this.handleHTTPErrors(response))
         .then(result => result.json() )
         .then(result => {
-            console.log("MsgBoard message() result.user = "+result.user);
             this.setState({
                 messages: [result].concat(this.state.messages)
             });
@@ -144,6 +143,12 @@ class MsgBoard extends React.Component {
 
        deleteMsg(messageId) {
            console.log("delete message success call messageId = " + messageId);
+       }
+       deleteAllMsgs() {
+        console.log("delete all message success call");
+       }
+       editMsg(messageId) {
+           console.log("editMsg success call messageId = " + messageId);
        }
 
     handleHTTPErrors(response) {
@@ -166,6 +171,11 @@ class MsgBoard extends React.Component {
     }
     render(){
         let form;
+        let deleteAllButton;
+        if(this.state.adminId == this.state.currentUser._id){
+           deleteAllButton=<button onClick={this.deleteAllMsgs}>Delete All Messages</button>
+        }
+
         if(this.state.registrationForm) {
             let failedRegistration;
 
@@ -194,7 +204,8 @@ class MsgBoard extends React.Component {
             return (
                 <div>
                 {form}
-                <MsgList messages={this.state.messages} currentUser={this.state.currentUser} deleteMsgCallback={this.deleteMsg} />
+                {deleteAllButton}
+                <MsgList messages={this.state.messages} adminId={this.state.adminId} currentUser={this.state.currentUser} editMsgCallback={this.editMsg} deleteMsgCallback={this.deleteMsg} />
                 </div>
                 );
         }
