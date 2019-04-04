@@ -20,7 +20,7 @@ const MsgList = (props) => {
                 </thead>
                 <tbody>
                 {props.messages.map( (message, index) =>
-                     <Message key={message._id} message={message} currentUser={props.currentUser} index={index} />
+                     <Message key={message._id} message={message} currentUser={props.currentUser} index={index} deleteMsg={props.deleteMsgCallback} />
                     // <tr key={message._id}>
                     //     <td>{index+1}</td>
                     //     <td>{message.owner}</td>
@@ -30,6 +30,6 @@ const MsgList = (props) => {
                 </tbody>
             </table> 
        );
-}
+    }
 
 module.exports = MsgList;

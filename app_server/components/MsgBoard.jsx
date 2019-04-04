@@ -142,6 +142,10 @@ class MsgBoard extends React.Component {
         });
        }
 
+       deleteMsg(messageId) {
+           console.log("delete message success call messageId = " + messageId);
+       }
+
     handleHTTPErrors(response) {
         if(!response.ok) throw Error(response.status + 
         ': ' + response.statusText);
@@ -190,7 +194,7 @@ class MsgBoard extends React.Component {
             return (
                 <div>
                 {form}
-                <MsgList messages={this.state.messages} currentUser={this.state.currentUser} />
+                <MsgList messages={this.state.messages} currentUser={this.state.currentUser} deleteMsgCallback={this.deleteMsg} />
                 </div>
                 );
         }
