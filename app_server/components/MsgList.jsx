@@ -2,8 +2,8 @@ const React = require('react');
 const Message = require('./Message.jsx');
 
 const MsgList = (props) => {
+    console.log("MsgList currentUser = "+props.currentUser);
        return(
-           <div>
             <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -20,13 +20,15 @@ const MsgList = (props) => {
                 </thead>
                 <tbody>
                 {props.messages.map( (message, index) =>
-                    // <tbody key={message._id}>
-                     <Message key={message._id} message={props.message} email={props.email} index={index}/> 
-                    // </tbody>
+                     <Message key={message._id} message={message} currentUser={props.currentUser} index={index} />
+                    // <tr key={message._id}>
+                    //     <td>{index+1}</td>
+                    //     <td>{message.owner}</td>
+                    //     <td>{message.msg}</td>
+                    // </tr>
                     )}
                 </tbody>
             </table> 
-            </div>
        );
 }
 

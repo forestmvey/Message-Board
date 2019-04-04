@@ -6,7 +6,7 @@ const passport = require('passport');
 
 router.post('/users', userAPIController.registerNewUser);
 router.get('/users/login',
-passport.authenticate('basic', { session: false }),
+passport.authenticate('basic', {session: false }),
  userAPIController.loginUser);
 
 router.route('/msgs')
