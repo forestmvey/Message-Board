@@ -84,6 +84,27 @@ const deleteMessage = (req, res) => {
 }
 };
 
+// Get single message
+const getSingleMessage = (req, res) => {
+   if(req.params && req.params.messageid){
+        messageModel.findById(req.params.messageid).exec((err, message) => {
+            if(err) {
+                res.status(400).json(err);
+            }else if(!message) {
+                res.status(404).json({
+                    "message" : "no message found"
+                });
+            }else{
+                res.status(200).json(message);
+            }
+            })
+    }else{
+        res.status(400).json({
+            "message" : "no message found"
+        });
+   }
+};
+
 // Delete all messages handler
 const deleteAllMessages = (req, res) => {
         messageModel.find().exec((err, message) => {
@@ -109,5 +130,5 @@ const deleteAllMessages = (req, res) => {
 };
 
 module.exports = {
-    getAllMessagesOrderedByLastPosted, addNewMessage, deleteMessage, editMessage, deleteAllMessages
+    getAllMessagesOrderedByLastPosted, addNewMessage, deleteMessage, editMessage, deleteAllMessages, getSingleMessage
 }

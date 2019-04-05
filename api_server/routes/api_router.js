@@ -14,13 +14,18 @@ router.route('/msgs')
 .post(passport.authenticate('basic', { session: false }),
 msgAPIController.addNewMessage);
 
-// update a message
-router.route("/msgs/:messageid")
-.put(msgAPIController.editMessage);
-
-// delete one message
-router.route("/msgs/:messageid")
+router.route('/msgs/:messageid')
+.get(msgAPIController.getSingleMessage)
+.put(msgAPIController.editMessage)
 .delete(msgAPIController.deleteMessage);
+
+// // update a message
+// router.route("/msgs/:messageid")
+// .put(msgAPIController.editMessage);
+
+// // delete one message
+// router.route("/msgs/:messageid")
+// .delete(msgAPIController.deleteMessage);
 
 // delete multiple messages
 router.route("/msgs")

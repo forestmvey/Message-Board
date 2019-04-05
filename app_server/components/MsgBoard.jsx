@@ -25,6 +25,10 @@ class MsgBoard extends React.Component {
         this.login = this.login.bind(this);
         this.register = this.register.bind(this);
         this.addNewUser = this.addNewUser.bind(this);
+        this.editMsg = this.editMsg.bind(this);
+        this.handleHTTPErrors = this.handleHTTPErrors.bind(this);
+        this.deleteAllMsgs = this.deleteAllMsgs.bind(this);
+        this.deleteMsg = this.deleteMsg.bind(this);
     }
     
     register() {
@@ -141,47 +145,61 @@ class MsgBoard extends React.Component {
         });
        }
 
-       deleteMsg(messageId) {
-           console.log("delete message success call messageId = " + messageId);
-        //    fetch(`${process.env.API_URL}/msgs/`+messageId, {
-        //     METHOD: 'DEL',
-        //     headers: {
-        //         'Authorization': 'Basic ' + btoa(basicString)
-        //     },
-        // })
-        // .then(response=> this.handleHTTPErrors(response))
-        // .then(result => result.json() )
-        // .then(console.log(result))
-        // .catch(error => {
-        //     console.log(error);
-        // });
+       deleteMsg(message) {
+
+        const basicString = this.state.userCredentials.email + ':' 
+        + this.state.userCredentials.password;
+        var messageCopy = this.state.message;
+        
+           console.log("delete message success call messageId = " + message._id);
+           fetch(`${process.env.API_URL}/msgs/`+message._id, {
+            METHOD: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(basicString),
+            },
+             //body: JSON.stringify(message)
+        })
+         .then(response => this.handleHTTPErrors(response))
+         .then(result => result.json() )
+         .then(result => {
+            console.log(result);
+         })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
        deleteAllMsgs() {
         console.log("delete all message success call");
        }
+
+
+
        editMsg(message) {
-           fetch(`${process.env.API_URL}/msgs/`+message.id, {
+        console.log(message._id);
+        const basicString = this.state.userCredentials.email + ':' 
+        + this.state.userCredentials.password;
+
+           fetch(`${process.env.API_URL}/msgs/`+message._id, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(basicString),
             },
-            body: JSON.stringify(message)
+           body: JSON.stringify(message)
          })
-         .then(response=> {
-            if(response.status === 200) {
-                return response;
-            }
-         })
+         .then(response=> this.handleHTTPErrors(response))
          .then(result => result.json() )
          .then(result => {
-            console.log(result.message);
+            console.log(result);
          })
          .catch(error=> {
              console.log(error);
          });
            
        }
+
 
     handleHTTPErrors(response) {
         if(!response.ok) throw Error(response.status + 
