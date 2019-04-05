@@ -30,7 +30,7 @@ class Message extends React.Component {
     }
     handleSaveButton() {
         console.log("handleSaveButton _id = " + this.props.message._id);
-        this.props.editMsg(this.props.message._id);
+        this.props.editMsg({"id":this.props.message._id, "msg": this.props.message.msg});
         this.setState({
             editMessage: false
         });

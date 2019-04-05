@@ -143,25 +143,44 @@ class MsgBoard extends React.Component {
 
        deleteMsg(messageId) {
            console.log("delete message success call messageId = " + messageId);
-           fetch(`${process.env.API_URL}/msgs/`+messageId, {
-            METHOD: 'DEL',
-            headers: {
-                'Authorization': 'Basic ' + btoa(basicString)
-            },
-        })
-        .then(response=> this.handleHTTPErrors(response))
-        .then(result => result.json() )
-        .then(console.log(result))
-        .catch(error => {
-            console.log(error);
-        });
+        //    fetch(`${process.env.API_URL}/msgs/`+messageId, {
+        //     METHOD: 'DEL',
+        //     headers: {
+        //         'Authorization': 'Basic ' + btoa(basicString)
+        //     },
+        // })
+        // .then(response=> this.handleHTTPErrors(response))
+        // .then(result => result.json() )
+        // .then(console.log(result))
+        // .catch(error => {
+        //     console.log(error);
+        // });
     }
 
        deleteAllMsgs() {
         console.log("delete all message success call");
        }
-       editMsg(messageId) {
-           console.log("editMsg success call messageId = " + messageId);
+       editMsg(message) {
+           fetch(`${process.env.API_URL}/msgs/`+message.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+         })
+         .then(response=> {
+            if(response.status === 200) {
+                return response;
+            }
+         })
+         .then(result => result.json() )
+         .then(result => {
+            console.log(result.message);
+         })
+         .catch(error=> {
+             console.log(error);
+         });
+           
        }
 
     handleHTTPErrors(response) {

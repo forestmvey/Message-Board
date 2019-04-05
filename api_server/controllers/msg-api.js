@@ -30,6 +30,7 @@ const addNewMessage = (req, res) => {
 
 // Edit request handler
 const editMessage = (req, res) => {
+    console.log(req.params);
     if(req.params && req.params.messageid){
         messageModel.findById(req.params.messageid).exec((err, message) => {
             if(err) {
@@ -42,15 +43,15 @@ const editMessage = (req, res) => {
             }else{
                 message.updateOne({msg:req.body.msg}, err=>{
                     if(err){
-                        return res.status(400).json(err);
+                        return res.status(401).json(err);
                     }else{
-                        res.status(200).json(message);
+                        res.status(200).json({"message": message});
                     }
                 });
             }
         });
     }else{
-        res.status(400).json({
+        res.status(402).json({
             "message" : "error updating message"
         });
     }

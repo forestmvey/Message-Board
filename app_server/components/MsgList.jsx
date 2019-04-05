@@ -2,8 +2,8 @@ const React = require('react');
 const Message = require('./Message.jsx');
 
 const MsgList = (props) => {
-    console.log("MsgList currentUser = "+props.currentUser);
-    
+    //console.log("MsgList currentUser = "+props.currentUser);
+
        return(
             <table className="table table-striped table-bordered">
                 <thead>
