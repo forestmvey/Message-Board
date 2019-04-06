@@ -59,6 +59,7 @@ const editMessage = (req, res) => {
 
 // Delete Message Handler
 const deleteMessage = (req, res) => {
+    console.log("deleteMessage");
     if(req.params && req.params.messageid){
     messageModel.findById(req.params.messageid).exec((err, message) => {
         if(err) {
@@ -86,6 +87,7 @@ const deleteMessage = (req, res) => {
 
 // Get single message
 const getSingleMessage = (req, res) => {
+    console.log("getSingleMessage");
    if(req.params && req.params.messageid){
         messageModel.findById(req.params.messageid).exec((err, message) => {
             if(err) {

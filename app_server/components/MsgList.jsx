@@ -17,6 +17,8 @@ const MsgList = (props) => {
                         <th scope="col" className="w-50">
                         Message
                         </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
