@@ -52,8 +52,8 @@ class Message extends React.Component {
                              <td>{this.props.index+1}</td>
                              <td>{this.props.message.name}</td>
                              <td>{this.props.message.msg}</td>
-                             <button onClick={this.handleDeleteButton}>Remove</button>
-                             <button onClick={this.handleEditButton}>Edit</button>
+                             <td><button className="btn btn-secondary" onClick={this.handleDeleteButton}>Remove</button></td>
+                             <td><button className="btn btn-secondary" onClick={this.handleEditButton}>Edit</button></td>
                  </tr>
             );
         }else if(this.props.currentUser.username == this.props.message.name && this.state.editMessage){ // when edit clicked
@@ -66,8 +66,8 @@ class Message extends React.Component {
                         onChange={this.handleEditText}
                         />
                             </td>
-                             <button onClick={this.handleCancelButton}>Cancel</button>
-                             <button onClick={this.handleSaveButton}>Save</button>
+                             <td><button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button></td>
+                             <td><button className="btn btn-secondary" onClick={this.handleSaveButton}>Save</button></td>
                  </tr>
             );
         }
@@ -77,6 +77,8 @@ class Message extends React.Component {
                                 <td>{this.props.index+1}</td>
                                 <td>{this.props.message.name}</td>
                                 <td>{this.props.message.msg}</td>
+                                <td></td>
+                                <td></td>
                     </tr>
             );
         }

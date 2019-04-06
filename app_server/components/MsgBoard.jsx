@@ -249,7 +249,7 @@ class MsgBoard extends React.Component {
                 loginAttempts={this.state.loginAttempts}
                 />
             }else {
-                form = <NewMsg addMsgCallback={this.addMessage} />
+                form = <NewMsg addMsgCallback={this.addMessage} currentUser={this.state.currentUser.username} />
             }
             return (
                 <div>
