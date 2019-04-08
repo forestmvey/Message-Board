@@ -4,7 +4,8 @@ class Message extends React.Component {
         super(props);
         this.state={
             editMessage: false,
-            msg: this.props.message.msg
+            msg: this.props.message.msg,
+            message: this.props.message
         }
         this.handleDeleteButton=this.handleDeleteButton.bind(this);
         this.handleEditButton=this.handleEditButton.bind(this);
@@ -15,23 +16,22 @@ class Message extends React.Component {
     }
 
     handleDeleteButton(){
-        console.log("handleDeleteButton _id = " + this.props.message._id);
-        this.props.deleteMsg(this.props.message);
+        console.log("handleDeleteButton _id = " + this.state.message);
+        this.props.deleteMsg(this.state.message);
     }
     handleEditButton() {
-        console.log("handleEditButton _id = " + this.props.message._id);
+        console.log("handleEditButton _id = " + this.state.message);
         this.setState({
             editMessage: true
         });
     }
     handleCancelButton() {
-        console.log("handleCancelButton _id = ");
         this.setState({
             editMessage: false
         });
     }
     handleSaveButton() {
-        console.log("handleSaveButton _id = " + this.props.message._id);
+        console.log("handleSaveButton _id = " + this.props.message);
         let messageCopy = Object.assign(this.props.message);
         messageCopy.msg = this.state.msg;
 

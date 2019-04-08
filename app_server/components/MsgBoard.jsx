@@ -140,6 +140,14 @@ class MsgBoard extends React.Component {
         + this.state.userCredentials.password;
         var messageCopy = this.state.messages;
 
+        var messageCopy = Object.assign(this.state.messages);
+
+        for(var i = 0; i < messageCopy.length; i++) {
+            if(messageCopy[i]._id == message._id){
+                messageCopy.splice(message._id, 1);
+            }
+        }
+
            console.log("delete message success call messageId = " + message._id);
            fetch(`${process.env.API_URL}/msgs/`+message._id, {
             method: 'DELETE',
@@ -151,7 +159,6 @@ class MsgBoard extends React.Component {
          .then(response => this.handleHTTPErrors(response))
          .then(result => result.json() )
          .then(result => {
-            messageCopy.splice(result, 1);
             this.setState({
                 messages: messageCopy
             });
@@ -162,10 +169,11 @@ class MsgBoard extends React.Component {
     }
 
        deleteAllMsgs() {
-        console.log("delete all message success call");
+        //console.log("delete all message success call");
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
-        var messageCopy = this.state.messages;
+        var messageCopy = Object.assign(this.state.messages);
+        messageCopy.splice(0),
 
            fetch(`${process.env.API_URL}/msgs`, {
             method: 'DELETE',
@@ -178,7 +186,7 @@ class MsgBoard extends React.Component {
          .then(result => result.json() )
          .then(
             this.setState({
-                messages: messageCopy.splice(0)
+                messages: messageCopy
             })
         )
         .catch(error => {
