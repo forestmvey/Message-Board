@@ -113,18 +113,7 @@ class MsgBoard extends React.Component {
     addMessage(message) {
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
-    //    let msgs = this.state.messages;
 
-    //    // add id attribute
-    //    message.id = msgs.length;
-    //    // append to array
-    //    msgs.push(message);
-    //    // update state var
-    //    this.setState({
-    //        messages: msgs
-    //    });
-
-       // update back-end data
        fetch(`${process.env.API_URL}/msgs`, {
            method: 'POST',
            headers: {
@@ -149,21 +138,23 @@ class MsgBoard extends React.Component {
 
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
-        var messageCopy = this.state.message;
-        
+        var messageCopy = this.state.messages;
+
            console.log("delete message success call messageId = " + message._id);
            fetch(`${process.env.API_URL}/msgs/`+message._id, {
-            METHOD: 'DEL',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + btoa(basicString),
             },
-             //body: JSON.stringify(message)
         })
          .then(response => this.handleHTTPErrors(response))
          .then(result => result.json() )
          .then(result => {
-            console.log(result);
+            messageCopy.splice(result, 1);
+            this.setState({
+                messages: messageCopy
+            });
          })
         .catch(error => {
             console.log(error);
@@ -172,6 +163,27 @@ class MsgBoard extends React.Component {
 
        deleteAllMsgs() {
         console.log("delete all message success call");
+        const basicString = this.state.userCredentials.email + ':' 
+        + this.state.userCredentials.password;
+        
+           fetch(`${process.env.API_URL}/msgs`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(basicString),
+            },
+        })
+         .then(response => this.handleHTTPErrors(response))
+         .then(result => result.json() )
+         .then(
+            this.setState({
+                messages: messages.splice(0)
+            })
+         )
+        .catch(error => {
+            console.log(error);
+        });
+
        }
 
 
@@ -223,7 +235,7 @@ class MsgBoard extends React.Component {
         let form;
         let deleteAllButton;
         if(this.state.adminId == this.state.currentUser._id){
-           deleteAllButton=<button onClick={this.deleteAllMsgs}>Delete All Messages</button>
+           deleteAllButton=<button className="btn btn-secondary" onClick={this.deleteAllMsgs}>Delete All Messages</button>
         }
 
         if(this.state.registrationForm) {

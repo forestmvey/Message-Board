@@ -23,11 +23,11 @@ router.route('/msgs/:messageid')
 // router.route("/msgs/:messageid")
 // .put(msgAPIController.editMessage);
 
-// // delete one message
+// // // delete one message
 // router.route("/msgs/:messageid")
 // .delete(msgAPIController.deleteMessage);
 
-// delete multiple messages
+// delete all messages
 router.route("/msgs")
 .delete(msgAPIController.deleteAllMessages);
 

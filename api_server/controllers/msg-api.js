@@ -23,7 +23,7 @@ const addNewMessage = (req, res) => {
             res.status(400).json(err);
        } else {   
            console.log("addNewMessage req.user = " + JSON.stringify(req.user));
-           res.status(201).json({"message" : message });   
+           res.status(201).json(message);   
         } 
     });
 };
@@ -83,6 +83,10 @@ const deleteMessage = (req, res) => {
         "message" : "no message found"
     });
 }
+
+// messageModel.findByIdAndDelete(req.params.messageid)
+// .exec();
+// res.status(200).json("message success");
 };
 
 // Get single message
@@ -126,7 +130,8 @@ const deleteAllMessages = (req, res) => {
                         }
                 });
                 });
-                res.status(200).json("All Messages Deleted");
+                console.log(message);
+                res.status(200).json(message);
             }
         });
 };
