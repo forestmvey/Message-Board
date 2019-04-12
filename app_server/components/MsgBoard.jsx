@@ -165,8 +165,6 @@ class MsgBoard extends React.Component {
         //console.log("delete all message success call");
         const basicString = this.state.userCredentials.email + ':' 
         + this.state.userCredentials.password;
-        var messageCopy = Object.assign(this.state.messages);
-        messageCopy.splice(0),
 
            fetch(`${process.env.API_URL}/msgs`, {
             method: 'DELETE',
@@ -177,11 +175,13 @@ class MsgBoard extends React.Component {
         })
          .then(response => this.handleHTTPErrors(response))
          .then(result => result.json() )
-         .then(
+         .then(result => {
+            var messageCopy = Object.assign(this.state.messages);
+            messageCopy.splice(0);
             this.setState({
                 messages: messageCopy
             })
-        )
+        })
         .catch(error => {
             console.log(error);
         });
